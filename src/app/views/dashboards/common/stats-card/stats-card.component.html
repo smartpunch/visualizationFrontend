@@ -1,0 +1,101 @@
+<section class="mt-lg-3">
+    <!--Grid row-->
+    <div class="row">
+
+        <!-- First Card: Correct classifications -->
+        <div class="col-xl-4 col-md-6 mb-r">
+            <!--Card-->
+            <div class="card card-cascade cascading-admin-card">
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon far icon="check-circle" class="success-color"></mdb-icon>
+                    <div class="data">
+                        <p>Fehlerfreie Klassifikationen</p>
+                        <h4>
+                            <strong>{{valueAbsWins}}</strong>
+                        </h4>
+                    </div>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <div class="card-body">
+                    <div class="progress">
+                        <div class="progress-bar bg grey darken-2" role="progressbar" [style.width]="relWinPerc +'%'" [attr.aria-valuenow]="relWinPerc"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <!--Text-->
+                    <p class="card-text">Entspricht {{relWinPerc | number:'.0-0'}} % aller Klassifikationen</p>
+                </div>
+                <!--/.Card content-->
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!-- First Card: Correct classifications -->
+
+        <!-- Second Card: Failed classifications -->
+        <div class="col-xl-4 col-md-6 mb-r">
+
+            <!--Card-->
+            <div class="card card-cascade cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="times-circle" class="red"></mdb-icon>
+                    <div class="data">
+                        <p>Fehlerhafte Klassifikationen</p>
+                        <h4>
+                            <strong>{{valueAbsFails}}</strong>
+                        </h4>
+                    </div>
+                </div>
+                <!--/.Card Data-->
+
+                <!--Card content-->
+                <div class="card-body">
+                    <div class="progress">
+                        <div class="progress-bar bg grey darken-2" role="progressbar" [style.width]="relFailPerc +'%'" [attr.aria-valuenow]="relFailPerc"
+                            aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                    <!--Text-->
+                    <p class="card-text">Entspricht {{relFailPerc | number:'.0-0'}} % aller Klassifikationen</p>
+                </div>
+                <!--/.Card content-->
+
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!-- Second Card: Failed classifications -->
+
+        <!-- Third Card: Algorithm overview -->
+        <div class="col-xl-4 col-md-12 mb-r">
+
+            <!--Card-->
+            <div class="card card-cascade cascading-admin-card">
+
+                <!--Card Data-->
+                <div class="admin-up">
+                    <mdb-icon fas icon="brain" class="light-blue lighten-1"></mdb-icon>
+                    <div class="data">
+                        <p>Aktueller Algorithmus</p>
+                        <h4>
+                            <p>Random-Forest (100)</p>
+                            <p>Datensatzgröße: 6404</p>
+                            <p>Test/Training: 70/30</p>
+                            <p>Erwartete Genauigkeit: 89%</p>
+                        </h4>
+                    </div>
+                </div>
+                <!--/.Card Data-->
+            </div>
+            <!--/.Card-->
+
+        </div>
+        <!-- Third Card: Algorithm overview -->
+
+    </div>
+    <!--Grid row-->
+</section>

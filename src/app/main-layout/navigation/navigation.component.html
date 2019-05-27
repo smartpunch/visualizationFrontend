@@ -1,0 +1,53 @@
+<!--Main Navigation-->
+<header>
+
+    <!--Navbar-->
+    <mdb-navbar [containerInside]="false" SideClass="navbar navbar-expand-lg navbar-light white">
+
+        <!-- Navbar brand -->
+        <logo class="ml-3">
+            <a class="navbar-brand" href="https://www.hs-fulda.de/elektrotechnik-und-informationstechnik/forschung/smartpunch/">
+                <strong class="text-success">smartPunch</strong>
+            </a>
+        </logo>
+
+        <!-- Collapsible content -->
+        <links>
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['dashboard']" href="/dashboard" mdbWavesEffect>Dashboard
+                        <span class="sr-only">(current)</span>
+                    </a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['settings']" href="/settings" mdbWavesEffect>Einstellungen</a>
+                </li>
+                <li class="nav-item" [routerLinkActive]="['active']">
+                    <a class="nav-link" [routerLink]="['about']" href="/about" mdbWavesEffect>Über das Projekt</a>
+                </li>
+                <!--
+                <li class="nav-item">
+                    <a class="nav-link" href="" target="_blank" mdbWavesEffect>Tutorial</a>
+                </li>
+                -->
+            </ul>
+            <!-- Links -->
+
+            <!-- Search form -->
+            <ul class="navbar-nav nav-flex-icons">
+                <li class="nav-item">
+                    <a href="https://www.hs-fulda.de/elektrotechnik-und-informationstechnik/forschung/smartpunch/" class="ml-1 nav-link border border-light rounded"
+                        mdbWavesEffect>
+                        <mdb-icon fas icon="book-open" class=" left"></mdb-icon>Dokumentation</a>
+                </li>
+            </ul>
+        </links>
+        <!-- Collapsible content -->
+
+    </mdb-navbar>
+    <!--/.Navbar-->
+
+</header>
+<!--Main Navigation-->

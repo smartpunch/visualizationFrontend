@@ -1,0 +1,299 @@
+<app-stats-card *ngIf="current_model_stats != null" [valueAbsWins]="current_model_stats.absolutePositiveAccuracy" [valueAbsFails]="current_model_stats.absoluteNegativeAccuracy"></app-stats-card>
+
+
+<!--Grid row-->
+<div class="row wow fadeIn mt-3">
+
+
+  <!--Grid column 1 of 3-->
+  <div class="col-lg-6 mb-2">
+
+    <!--Accelerometer data-->
+    <div class="card">
+
+      <!-- Card header -->
+      <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <a class="nav-link active">Beschleunigungswerte des letzten Boxschlags</a>
+          </li>
+          <li *ngIf="readyForRating" class="nav-item">
+            <a type="button" class="nav-link" data-toggle="modal" data-target="#basicExample" (click)="centralRegular.show()">Bewerten</a>
+          </li>
+        </ul>
+      </div>
+
+      <!--Card content-->
+      <div class="card-body">
+
+        <div *ngIf="!isAccDataAvailable" class="jumbotron">
+          <h2 class="display-4">warte auf neue Daten ...</h2>
+          <p class="lead"></p>
+          <hr class="my-4">
+          <p>Alle bisherigen Schläge wurden bewertet. Führen Sie einen neuen Boxschlag durch und warten sie auf die automatische
+            Darstellung der Beschleunigungsdaten.</p>
+        </div>
+
+        <div *ngIf="isAccDataAvailable" style="display: block;">
+          <div class="text-center">
+            Klassifiziert wurde:
+            <span class="badge badge-primary badge-pill">{{modal_Hand_to_show}}</span> und
+            <span class="badge badge-primary badge-pill">{{modal_Label_to_show}}</span>
+          </div>
+          <hr class="my-4">
+          <canvas mdbChart style="height:auto; margin: 0 auto;max-height:40vh !important;max-width:80vh !important" [chartType]="accelerometerDataChart"
+            [datasets]="lastAcceleroData" [labels]="acceleroTimeStamps" [colors]="chartColors" [options]="chartOptions" [legend]="true">
+          </canvas>
+        </div>
+      </div>
+    </div>
+    <!--/.Card-->
+
+  </div>
+  <!--Grid column-->
+
+  <!--Grid column 2 of 3-->
+
+  <div class="col-lg-6 col-xl-2 mb-4">
+    <div class="row">
+      <div class="col-md-12 mb-1">
+        <!--Card-->
+        <div *ngIf="current_model_stats" class="card mb-4">
+
+          <div class="card-header text-center">
+            Genauigkeiten Links
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!-- List group links -->
+            <div class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Frontalschlag
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[3].hands[1][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[3].hands[1][0]:current_model_stats.absoluteFailWinSums[3].hands[1][1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Seitenhieb
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[2].hands[1][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[2].hands[1][0]:current_model_stats.absoluteFailWinSums[2].hands[1][1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Kinnhaken
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[1].hands[1][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[1].hands[1][0]:current_model_stats.absoluteFailWinSums[1].hands[1][1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Keine Aktion
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[0].hands[1][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[0].hands[1][0]:current_model_stats.absoluteFailWinSums[0].hands[1][1]}}
+                  %
+                </span>
+              </li>
+            </div>
+            <!-- List group links -->
+
+          </div>
+
+        </div>
+      </div>
+      <!--Grid column-->
+      <div class="col-md-12 mb-1">
+
+        <!--Card-->
+        <div *ngIf="current_model_stats" class="card mb-4">
+
+          <div class="card-header text-center">
+            Genauigkeiten Rechts
+          </div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <!-- List group links -->
+            <div class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Frontalschlag
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[3].hands[0][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[3].hands[0][0]:current_model_stats.absoluteFailWinSums[3].hands[0][1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Seitenhieb
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[2].hands[0][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[2].hands[0][0]:current_model_stats.absoluteFailWinSums[2].hands[0][1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Kinnhaken
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[1].hands[0][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[1].hands[0][0]:current_model_stats.absoluteFailWinSums[1].hands[0][1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Keine Aktion
+                <span class="badge badge-primary badge-pill">{{current_model_stats.absoluteFailWinSums[0].hands[0][0] | absToRelInPercPipe: current_model_stats.absoluteFailWinSums[0].hands[0][0]:current_model_stats.absoluteFailWinSums[0].hands[0][1]}}
+                  %
+                </span>
+              </li>
+            </div>
+            <!-- List group links -->
+
+          </div>
+
+        </div>
+        <!--/.Card-->
+
+      </div>
+      <!--Grid column-->
+    </div>
+    <!--/.Card-->
+  </div>
+  <!--Grid column-->
+
+  <!--Grid column 3 of 3-->
+  <div class="col-lg-12 col-xl-4 mb-4">
+
+    <div class="row">
+      <div class="col-md-12 col-lg-6 col-xl-12 mb-1">
+        <!--Card-->
+        <div *ngIf="current_model_stats" class="card">
+
+          <!-- Card header -->
+          <div class="card-header">Häufigkeit der Schlagtypen</div>
+
+          <!--Card content-->
+          <div class="card-body">
+
+            <div style="display: block">
+              <canvas mdbChart [chartType]="modelStatsPieChart" [datasets]="modelStatsDatasets" [labels]="modelStatsLabel" [colors]="chartColors"
+                [options]="chartOptions" [legend]="true"></canvas>
+            </div>
+          </div>
+
+        </div>
+        <!--/.Card-->
+      </div>
+
+      <div class="col-md-12 col-lg-6 col-xl-12 mb-1">
+        <!--Card-->
+        <div *ngIf="current_model_stats" class="card">
+
+          <!-- Card header -->
+          <div class="card-header">Allgemeine Informationen</div>
+
+          <!--Card content-->
+          <div class="card-body">
+            <!-- List group links -->
+            <div class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Bewertete Boxschläge insgesamt:
+                <span>{{current_model_stats.absolutePositiveAccuracy + current_model_stats.absoluteNegativeAccuracy}}
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Erfolgreiche Klassifikationen:
+                <span>{{current_model_stats.absolutePositiveAccuracy}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Fehlerhafte Klassifikationen:
+                <span>{{current_model_stats.absoluteNegativeAccuracy}}
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Genauigkeit Schlaghand-Klassifikation:
+                <span>{{current_model_stats.absoluteHandOnlyWinsSums[0]+current_model_stats.absoluteHandOnlyWinsSums[1] | absToRelInPercPipe:
+                  current_model_stats.absoluteHandOnlyWinsSums[0]+current_model_stats.absoluteHandOnlyWinsSums[1] :current_model_stats.absoluteHandOnlyFailsSums[0]+current_model_stats.absoluteHandOnlyFailsSums[1]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Genauigkeit Schlagtyp-Klassifikation:
+                <span>{{current_model_stats.absolutePunchTypeOnlyWinsSums[0]+current_model_stats.absolutePunchTypeOnlyWinsSums[1]+current_model_stats.absolutePunchTypeOnlyWinsSums[2]+current_model_stats.absolutePunchTypeOnlyWinsSums[3]
+                  | absToRelInPercPipe: current_model_stats.absolutePunchTypeOnlyWinsSums[0]+current_model_stats.absolutePunchTypeOnlyWinsSums[1]+current_model_stats.absolutePunchTypeOnlyWinsSums[2]+current_model_stats.absolutePunchTypeOnlyWinsSums[3]
+                  :current_model_stats.absolutePunchTypeOnlyFailsSums[0]+current_model_stats.absolutePunchTypeOnlyFailsSums[1]+current_model_stats.absolutePunchTypeOnlyFailsSums[2]+current_model_stats.absolutePunchTypeOnlyFailsSums[3]}}
+                  %
+                </span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                Gesamtgenauigkeit:
+                <span>{{current_model_stats.relativeAccuracy | number:'.0-2'}} %
+                </span>
+              </li>
+            </div>
+            <!-- List group links -->
+          </div>
+
+        </div>
+        <!--/.Card-->
+
+
+      </div>
+
+    </div>
+    <!--Grid column-->
+
+  </div>
+  <!--Grid row-->
+
+
+  <div mdbModal #centralRegular="mdb-modal" class="modal fade" id="basicExample" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" [config]="{backdrop: false, ignoreBackdropClick: true}">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100" id="myModalLabel">Klassifikation bewerten:</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="centralRegular.hide(); on_punch_facts_reset_clicked()">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row align-items-center">
+            <div class="col-6">
+              Klassifizierte Hand:
+            </div>
+            <div class="col-6">
+              <div class="btn-group" mdbDropdown>
+                <button mdbDropdownToggle type="button" mdbBtn color="light" class="dropdown-toggle waves-light" mdbWavesEffect>
+                  {{modal_Hand_to_show}}
+                </button>
+                <div class="dropdown-menu dropdown-primary">
+                  <a class="dropdown-item" (click)="on_punchHand_corrected(1)">Links</a>
+                  <a class="dropdown-item" (click)="on_punchHand_corrected(0)">Rechts</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row align-items-center" style="margin-top:1em">
+            <div class="col-6">
+              Klassifizierter Schlagtyp:
+            </div>
+            <div class="col-6">
+              <div class="btn-group" mdbDropdown>
+                <button mdbDropdownToggle type="button" mdbBtn color="light" class="dropdown-toggle waves-light" mdbWavesEffect>
+                  {{modal_Label_to_show}}
+                </button>
+
+                <div class="dropdown-menu dropdown-primary">
+                  <a class="dropdown-item" (click)="on_punchtype_corrected(3)">Frontalschlag</a>
+                  <a class="dropdown-item" (click)="on_punchtype_corrected(2)">Seitenhieb</a>
+                  <a class="dropdown-item" (click)="on_punchtype_corrected(1)">Kinnhaken</a>
+                  <a class="dropdown-item" (click)="on_punchtype_corrected(0)">Keine Aktion</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" *ngIf="isFullCorrect()" class="btn btn-success btn-sm waves-light" data-dismiss="modal" (click)="centralRegular.hide();on_prediction_is_correct_clicked()"
+            mdbWavesEffect>Klassifikation fehlerfrei</button>
+          <button type="button" class="btn btn-danger btn-sm waves-light" (click)="centralRegular.hide(); on_save_corrected_prediction_results_clicked()"
+            mdbWavesEffect>Korrektur senden</button>
+        </div>
+      </div>
+    </div>
+  </div>
